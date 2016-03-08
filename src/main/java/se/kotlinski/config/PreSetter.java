@@ -1,9 +1,9 @@
 package se.kotlinski.config;
 
 import java.util.ArrayList;
+import java.util.HashMap;
 import java.util.List;
 
-import se.kotlinski.boardcomponents.BoardComponentBase;
 import se.kotlinski.boardcomponents.HeightLevel;
 import se.kotlinski.boardcomponents.buildings.Building;
 import se.kotlinski.boardcomponents.buildings.BuildingType;
@@ -16,10 +16,11 @@ import se.kotlinski.models.Game;
 import se.kotlinski.models.Position;
 import se.kotlinski.operators.UnitOperator;
 import se.kotlinski.teams.Team;
+import se.kotlinski.teams.TeamType;
 
 public class PreSetter {
 
-  private static final int HEIGHT = 15;
+  private static final int HEIGHT = 6;
   private static final int WIDTH = 30;
   private final UnitOperator unitOperator;
 
@@ -28,34 +29,62 @@ public class PreSetter {
   }
 
   public Game createGame() {
-
     // Todo: change to use HashSet(Position, T)
 
     Tile[][] tiles = createTiles(WIDTH, HEIGHT);
 
-    Position position = new Position(WIDTH / 2, HEIGHT / 2, HeightLevel.GROUND);
-    System.out.println("Width: " + WIDTH);
-    System.out.println("Height: " + HEIGHT);
-    System.out.println(position);
-    System.out.println("tiles.length:");
-    System.out.println(tiles.length);
-    tiles[HEIGHT / 2][WIDTH / 2] = new Tile(TileType.WATER, position) {
+    Position position1 = new Position(WIDTH / 2, HEIGHT / 2, HeightLevel.GROUND);
+    Position position2 = new Position(WIDTH / 2, HEIGHT / 2 + 1, HeightLevel.GROUND);
+    Position position3 = new Position(WIDTH / 2 + 1, HEIGHT / 2, HeightLevel.GROUND);
+    tiles[position1.y][position1.x] = new Tile(TileType.WATER, position1) {
+    };
+    tiles[position2.y][position2.x] = new Tile(TileType.WATER, position2) {
+    };
+    tiles[position3.y][position3.x] = new Tile(TileType.WATER, position3) {
     };
     GameBoard gameBoard = new GameBoard(WIDTH, HEIGHT, tiles);
 
-    List<Building> buildings = new ArrayList<Building>();
-    Position baseBuildingPosition = new Position(18, 1, HeightLevel.GROUND_UNIT);
-    Building building = new Building(BuildingType.BASE, baseBuildingPosition, Team.TEAM_B);
-    buildings.add(building);
+    Team teamA = setUpTeamA();
+    Team teamB = setUpTeamB();
+    List<Team> teams = new ArrayList<Team>();
+    teams.add(teamA);
+    teams.add(teamB);
 
-    List<Unit> units = new ArrayList<Unit>();
-    Position infantryPosition = new Position(0, 5, HeightLevel.GROUND_UNIT);
-    units.add(new Unit(UnitType.INFANTERY, Team.TEAM_A, infantryPosition) {
+    List<Building> buildings = new ArrayList<Building>();
+    buildings.add(teamA.baseBuilding);
+    buildings.add(teamB.baseBuilding);
+
+    unitOperator.setBaseUnitTarget(teamA, teamB.baseBuilding);
+    unitOperator.setBaseUnitTarget(teamB, teamA.baseBuilding);
+
+    return new Game(teams, buildings, gameBoard);
+  }
+
+  private Team setUpTeamA() {
+    TeamType teamA = TeamType.TEAM_A;
+    Position baseBuildingPosition = new Position(2, 2, HeightLevel.GROUND_UNIT);
+    Building baseBuilding = new Building(BuildingType.BASE, baseBuildingPosition, teamA);
+    HashMap<Position, Unit> units = new HashMap<Position, Unit>();
+
+    Position infantryPosition = new Position(baseBuildingPosition.x + 1, baseBuildingPosition.y,
+        HeightLevel.GROUND_UNIT);
+    units.put(infantryPosition, new Unit(UnitType.INFANTERY, teamA, infantryPosition) {
     });
 
-    unitOperator.setBaseTarget(units, Team.TEAM_A, building.getPosition());
+    return new Team(baseBuilding, units);
+  }
 
-    return new Game(units, buildings, gameBoard);
+  private Team setUpTeamB() {
+    TeamType teamB = TeamType.TEAM_B;
+    Position baseBuildingPosition = new Position(WIDTH - 2, HEIGHT - 2, HeightLevel.GROUND_UNIT);
+    Building baseBuilding = new Building(BuildingType.BASE, baseBuildingPosition, teamB);
+    HashMap<Position, Unit> units = new HashMap<Position, Unit>();
+
+    Position infantryPosition = new Position(baseBuildingPosition.x - 1, baseBuildingPosition.y,
+        HeightLevel.GROUND_UNIT);
+    units.put(infantryPosition, new Unit(UnitType.INFANTERY, teamB, infantryPosition) {
+    });
+    return new Team(baseBuilding, units);
   }
 
   private Tile[][] createTiles(final int width, final int height) {

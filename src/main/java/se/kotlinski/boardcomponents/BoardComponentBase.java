@@ -1,15 +1,15 @@
 package se.kotlinski.boardcomponents;
 
 import se.kotlinski.models.Position;
-import se.kotlinski.teams.Team;
+import se.kotlinski.teams.TeamType;
 
 public abstract class BoardComponentBase {
 
   public Position position;
-  public final Team team;
+  public final TeamType teamType;
 
-  public BoardComponentBase(final Position position, final Team team) {
-    this.team = team;
+  public BoardComponentBase(final Position position, final TeamType teamType) {
+    this.teamType = teamType;
     this.position = position;
   }
 
@@ -21,7 +21,7 @@ public abstract class BoardComponentBase {
     this.position = position;
   }
 
-  public Team getTeam() {
-    return team;
+  public TeamType getTeamType() {
+    return teamType;
   }
 }

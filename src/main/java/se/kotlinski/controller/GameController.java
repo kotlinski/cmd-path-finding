@@ -5,6 +5,7 @@ import se.kotlinski.gameboard.cmd.GameBoardDrawer;
 import se.kotlinski.gameboard.PathGuide;
 import se.kotlinski.models.Game;
 import se.kotlinski.models.Position;
+import se.kotlinski.teams.Team;
 import sun.misc.Signal;
 import sun.misc.SignalHandler;
 
@@ -24,20 +25,24 @@ public class GameController {
   public boolean startGame() throws InterruptedException {
     endGameHandler();
 
-    while (game.isGameRunning()) {
+    Team winner = null;
+    while (winner == null) {
       gameBoardDrawer.drawGameboard();
 
       moveUnits();
-
+      winner = game.getWinner();
       Thread.sleep(300);
     }
+    System.out.println("winning team: " + winner + "!!!");
     return true;
   }
 
   private void moveUnits() {
-    for (Unit unit : game.units) {
-      Position position = pathGuide.calculateNextPosition(unit.getPosition(), unit.getTarget());
-      unit.setPosition(position);
+    for (Team team : game.teams) {
+      for (Unit unit : team.units.values()) {
+        Position position = pathGuide.calculateNextPosition(unit.getPosition(), unit.getTarget());
+        unit.setPosition(position);
+      }
     }
   }
 

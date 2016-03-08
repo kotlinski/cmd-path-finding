@@ -2,16 +2,16 @@ package se.kotlinski.gameboard.cmd;
 
 import se.kotlinski.boardcomponents.BoardComponentBase;
 import se.kotlinski.boardcomponents.tiles.Tile;
-import se.kotlinski.teams.Team;
+import se.kotlinski.teams.TeamType;
 
 public class ColorTable {
 
   public ColorTable() {
   }
 
-  public String getColorForUnit(final BoardComponentBase unit) {
-    Team team = unit.getTeam();
-    switch (team) {
+  public String getTeamColor(final BoardComponentBase unit) {
+    TeamType teamType = unit.getTeamType();
+    switch (teamType) {
     case TEAM_A:
       return AnsiColor.ANSI_RED;
     case TEAM_B:
@@ -31,4 +31,5 @@ public class ColorTable {
     }
     throw new RuntimeException();
   }
+
 }
