@@ -10,3 +10,19 @@
 
 # virtual machine crash logs, see http://www.java.com/en/download/help/error_hotspot.xml
 hs_err_pid*
+
+
+# Intellij
+.idea/
+*.iml
+out/
+*.html
+
+# generated files
+# Local configuration file (sdk path, etc)
+# Windows thumbnail db
+# OSX files
+# Android Studio
+.gradle
+build/
+gradle-wrapper.properties
