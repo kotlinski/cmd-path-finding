@@ -20,6 +20,10 @@ public abstract class Unit extends BoardComponentBase {
     return target;
   }
 
+  public Building getEnemyBaseBuilding() {
+    return enemyBaseBuilding;
+  }
+
   public void setTarget(final Position targetPosition) {
     target = targetPosition;
   }

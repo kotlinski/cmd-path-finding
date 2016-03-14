@@ -1,10 +1,15 @@
 package se.kotlinski.gameboard;
 
+import java.util.List;
+
+import se.kotlinski.boardcomponents.tiles.Tile;
 import se.kotlinski.models.Position;
+import se.kotlinski.teams.Team;
 
 public class PathGuide {
 
-  public Position calculateNextPosition(Position fromPosition, Position toPosition) {
+  public Position calculateNextPosition(Position fromPosition, Position toPosition, final List<Team> teams,
+      final Tile[][] tiles) {
     int xDiff = fromPosition.x - toPosition.x;
     int yDiff = fromPosition.y - toPosition.y;
 
@@ -14,32 +19,48 @@ public class PathGuide {
     if (Math.abs(xDiff) > Math.abs(yDiff)) {
       if (xDiff > 0) {
         xDirection = -1;
-      }
-      else if (xDiff < 0) {
+      } else if (xDiff < 0) {
         xDirection = 1;
       }
-    }
-    else {
+    } else {
       if (yDiff > 0) {
         yDirection = -1;
-      }
-      else if (yDiff < 0) {
+      } else if (yDiff < 0) {
         yDirection = 1;
       }
     }
 
+    Position position = new Position(fromPosition.x + xDirection, fromPosition.y + yDirection,
+        fromPosition.heightLevel);
 
     System.out.println("from position" + fromPosition);
+    System.out.println("to position" + position);
 
-
-    Position position = new Position(fromPosition.x + xDirection,
-                                     fromPosition.y + yDirection,
-                                     fromPosition.heightLevel);
-
-    System.out.println("new position" + position);
+    if (isMovementBlocked(position, teams, tiles)) {
+      return fromPosition;
+    }
 
     return position;
   }
 
+  private boolean isMovementBlocked(final Position newPosition, final List<Team> teams, final Tile[][] tiles) {
+    for (Team team : teams) {
+      boolean containsPosition = team.units.containsKey(newPosition);
+      if (containsPosition) {
+        System.out.println("UNIT IN POSITION!!!!");
+        throw new RuntimeException();
+      }
+    }
+    Tile tile = tiles[newPosition.y][newPosition.x];
+
+    switch (tile.getTileType()) {
+    case MUD:
+      return false;
+    case WATER:
+      return false;
+    default:
+      return true;
+    }
+  }
 
 }

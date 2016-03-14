@@ -18,7 +18,9 @@ public abstract class BoardComponentBase {
   }
 
   public void setPosition(final Position position) {
-    this.position = position;
+    this.position.y = position.y;
+    this.position.x = position.x;
+    this.position.heightLevel = position.heightLevel;
   }
 
   public TeamType getTeamType() {

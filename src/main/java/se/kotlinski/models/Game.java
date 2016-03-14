@@ -25,7 +25,7 @@ public class Game {
   public Team getWinner() {
     for (Team team : teams) {
       for (Unit unit : team.units.values()) {
-        if (unit.position.equals(unit.getTarget())) {
+        if (unit.position.equals(unit.getEnemyBaseBuilding().getPosition())) {
           return team;
         }
       }
