@@ -1,11 +1,11 @@
 package se.kotlinski.models;
 
+import java.util.List;
+
 import se.kotlinski.boardcomponents.buildings.Building;
 import se.kotlinski.boardcomponents.units.Unit;
 import se.kotlinski.gameboard.GameBoard;
 import se.kotlinski.teams.Team;
-
-import java.util.List;
 
 public class Game {
 
