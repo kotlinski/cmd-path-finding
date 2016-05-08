@@ -1,29 +1,21 @@
 
-
 package se.kotlinski.graph;
+
+import se.kotlinski.graph.base.Edge;
+import se.kotlinski.graph.base.Graph;
+import se.kotlinski.graph.base.Node;
 
 import java.util.List;
 
+public interface GraphPath {
 
+  public Graph getGraph();
 
-public interface GraphPath<V, E>
-{
+  public Node getStartVertex();
 
+  public Node getEndVertex();
 
+  public List<Edge> getEdgeList();
 
-    public Graph<V, E> getGraph();
-
-
-    public V getStartVertex();
-
-
-    public V getEndVertex();
-
-
-    public List<E> getEdgeList();
-
-
-    public double getWeight();
+  public double getWeight();
 }
-
-

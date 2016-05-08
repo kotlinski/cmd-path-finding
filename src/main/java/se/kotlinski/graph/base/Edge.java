@@ -1,8 +1,8 @@
 
-
 package se.kotlinski.graph.base;
 
 import java.io.Serializable;
+import java.util.Collections;
 import java.util.HashSet;
 import java.util.Set;
 
@@ -10,10 +10,21 @@ public class Edge implements Cloneable, Serializable {
 
   Set<Node> nodes;
 
-  double weight = WeightedGraph.DEFAULT_EDGE_WEIGHT;
+  double weight = 1.0;
 
-  public Edge() {
+  public Edge(Node... nodes) {
     this.nodes = new HashSet<Node>();
+    Collections.addAll(this.nodes, nodes);
+  }
+
+  public Edge(final double weight, Node... nodes) {
+    this.nodes = new HashSet<Node>();
+    Collections.addAll(this.nodes, nodes);
+    this.weight = weight;
+  }
+
+  public Edge(Set<Node> nodes) {
+    this.nodes = nodes;
   }
 
   protected double getWeight() {
@@ -44,8 +55,7 @@ public class Edge implements Cloneable, Serializable {
 
     Edge that = (Edge) o;
 
-    return Double.compare(that.weight, weight) == 0 &&
-           (nodes != null ? nodes.equals(that.nodes) : that.nodes == null);
+    return Double.compare(that.weight, weight) == 0 && (nodes != null ? nodes.equals(that.nodes) : that.nodes == null);
 
   }
 
@@ -63,8 +73,7 @@ public class Edge implements Cloneable, Serializable {
   public Object clone() {
     try {
       return super.clone();
-    }
-    catch (CloneNotSupportedException e) {
+    } catch (CloneNotSupportedException e) {
 
       throw new InternalError();
     }

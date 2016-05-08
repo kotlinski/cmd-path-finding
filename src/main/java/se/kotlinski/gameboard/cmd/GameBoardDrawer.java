@@ -4,9 +4,9 @@ import java.util.List;
 
 import se.kotlinski.boardcomponents.BoardComponentBase;
 import se.kotlinski.boardcomponents.buildings.Building;
-import se.kotlinski.boardcomponents.tiles.Tile;
 import se.kotlinski.boardcomponents.units.Unit;
 import se.kotlinski.gameboard.GameBoard;
+import se.kotlinski.graph.base.Node;
 import se.kotlinski.models.Game;
 import se.kotlinski.models.Position;
 import se.kotlinski.teams.Team;
@@ -43,7 +43,7 @@ public class GameBoardDrawer {
     }
   }
 
-  private String getTileDrawable(final Tile tile) {
+  private String getTileDrawable(final Node tile) {
     return colorTable.getColorForTile(tile) + charTable.getCharForTile(tile) + AnsiColor.ANSI_RESET;
   }
 

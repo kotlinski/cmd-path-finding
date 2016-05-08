@@ -7,16 +7,14 @@ import java.util.List;
 import se.kotlinski.boardcomponents.HeightLevel;
 import se.kotlinski.boardcomponents.buildings.Building;
 import se.kotlinski.boardcomponents.buildings.BuildingType;
-import se.kotlinski.boardcomponents.tiles.Tile;
-import se.kotlinski.boardcomponents.tiles.TileType;
 import se.kotlinski.boardcomponents.units.Unit;
-import se.kotlinski.boardcomponents.units.UnitType;
 import se.kotlinski.gameboard.GameBoard;
+import se.kotlinski.graph.base.Node;
 import se.kotlinski.models.Game;
 import se.kotlinski.models.Position;
 import se.kotlinski.operators.UnitOperator;
 import se.kotlinski.teams.Team;
-import se.kotlinski.teams.TeamType;
+import se.kotlinski.teams.TeamId;
 
 public class PreSetter {
 
@@ -31,16 +29,16 @@ public class PreSetter {
   public Game createGame() {
     // Todo: change to use HashSet(Position, T)
 
-    Tile[][] tiles = createTiles(WIDTH, HEIGHT);
+    Node[][] tiles = createTiles(WIDTH, HEIGHT);
 
     Position position1 = new Position(WIDTH / 2, HEIGHT / 2, HeightLevel.GROUND);
     Position position2 = new Position(WIDTH / 2, HEIGHT / 2 + 1, HeightLevel.GROUND);
     Position position3 = new Position(WIDTH / 2 + 1, HEIGHT / 2, HeightLevel.GROUND);
-    tiles[position1.y][position1.x] = new Tile(TileType.WATER, position1) {
+    tiles[position1.y][position1.x] = new Node(HEIGHT / 2, WIDTH / 2) {
     };
-    tiles[position2.y][position2.x] = new Tile(TileType.WATER, position2) {
+    tiles[position2.y][position2.x] = new Node(HEIGHT / 2 + 1, WIDTH / 2) {
     };
-    tiles[position3.y][position3.x] = new Tile(TileType.WATER, position3) {
+    tiles[position3.y][position3.x] = new Node(HEIGHT / 2, WIDTH / 2 + 1) {
     };
     GameBoard gameBoard = new GameBoard(WIDTH, HEIGHT, tiles);
 
@@ -61,38 +59,38 @@ public class PreSetter {
   }
 
   private Team setUpTeamA() {
-    TeamType teamA = TeamType.TEAM_A;
+    TeamId teamA = TeamId.TEAM_A;
     Position baseBuildingPosition = new Position(2, 2, HeightLevel.GROUND_UNIT);
     Building baseBuilding = new Building(BuildingType.BASE, baseBuildingPosition, teamA);
-    HashMap<Position, Unit> units = new HashMap<Position, Unit>();
+    HashMap<Node, Unit> units = new HashMap<>();
 
     Position infantryPosition = new Position(baseBuildingPosition.x + 1, baseBuildingPosition.y,
         HeightLevel.GROUND_UNIT);
-    units.put(infantryPosition, new Unit(UnitType.INFANTERY, teamA, infantryPosition) {
-    });
+/*    units.put(infantryPosition, new Unit(UnitType.INFANTRY, teamA, infantryPosition) {
+    });*/
 
-    return new Team(baseBuilding, units);
+    return new Team(baseBuilding);
   }
 
   private Team setUpTeamB() {
-    TeamType teamB = TeamType.TEAM_B;
+    TeamId teamB = TeamId.TEAM_B;
     Position baseBuildingPosition = new Position(WIDTH - 2, HEIGHT - 2, HeightLevel.GROUND_UNIT);
     Building baseBuilding = new Building(BuildingType.BASE, baseBuildingPosition, teamB);
-    HashMap<Position, Unit> units = new HashMap<Position, Unit>();
+    HashMap<Node, Unit> units = new HashMap<>();
 
     Position infantryPosition = new Position(baseBuildingPosition.x - 1, baseBuildingPosition.y,
         HeightLevel.GROUND_UNIT);
-    units.put(infantryPosition, new Unit(UnitType.INFANTERY, teamB, infantryPosition) {
-    });
-    return new Team(baseBuilding, units);
+/*    units.put(infantryPosition, new Unit(UnitType.INFANTRY, teamB, infantryPosition) {
+    });*/
+    return new Team(baseBuilding);
   }
 
-  private Tile[][] createTiles(final int width, final int height) {
-    Tile[][] tiles = new Tile[HEIGHT][WIDTH];
+  private Node[][] createTiles(final int width, final int height) {
+    Node[][] tiles = new Node[HEIGHT][WIDTH];
     for (int y = 0; y < height; y++) {
       for (int x = 0; x < width; x++) {
         Position position = new Position(x, y, HeightLevel.GROUND_UNIT);
-        tiles[y][x] = new Tile(TileType.MUD, position) {
+        tiles[y][x] = new Node(y, x) {
         };
       }
     }

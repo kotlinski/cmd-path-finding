@@ -252,8 +252,8 @@ public class KShortestPathCostTest {
     while (line != null) {
       edgeText = line.split("\t");
 
-      graph.addVertex(edgeText[0]);
-      graph.addVertex(edgeText[1]);
+      graph.addNode(edgeText[0]);
+      graph.addNode(edgeText[1]);
       ed = graph.addEdge(edgeText[0], edgeText[1]);
       graph.setEdgeWeight(ed, Double.parseDouble(edgeText[2]));
 

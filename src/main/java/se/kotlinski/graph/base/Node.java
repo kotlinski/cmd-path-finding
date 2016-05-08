@@ -1,35 +1,60 @@
 package se.kotlinski.graph.base;
 
-import se.kotlinski.teams.Team;
-
 import java.util.HashMap;
+import java.util.HashSet;
+import java.util.List;
 import java.util.Map;
+import java.util.Set;
+
+import se.kotlinski.boardcomponents.tiles.TileType;
+import se.kotlinski.boardcomponents.units.Unit;
+import se.kotlinski.gameboard.cmd.CharTable;
+import se.kotlinski.teams.Team;
 
 public class Node {
 
-  public final Integer x;
+  public Integer x;
+  public Integer y;
 
-  public final Integer y;
+  public Boolean blockingEdge;
 
-  public final Boolean blockingEdge;
+  public Map<Team, Boolean> visibleForTeam;
 
-  public final Map<Team, Boolean> visibleForTeam;
+  public Map<Team, Node> shortestEdgeToNextTarget;
+  public TileType tileType;
+  public CharTable charTable;
+  public Unit unit;
+  public Set<Unit> units;
 
-  public final Map<Team, Node> shortestEdgeToNextTarget;
-
-  public Node(final Integer x, final Integer y) {
+  public Node(Integer y, Integer x) {
     this.x = x;
     this.y = y;
     blockingEdge = false;
-    visibleForTeam = new HashMap<Team, Boolean>();
-    shortestEdgeToNextTarget = new HashMap<Team, Node>();
+    visibleForTeam = new HashMap<>();
+    shortestEdgeToNextTarget = new HashMap<>();
+    units = new HashSet<>();
+    tileType = TileType.MUD;
+
+    charTable = new CharTable();
   }
 
-  public Node(final Integer x, final Integer y, final Boolean blockingEdge) {
+  public Node(Integer x, Integer y, Boolean blockingEdge, TileType tileType) {
     this.x = x;
     this.y = y;
     this.blockingEdge = blockingEdge;
-    visibleForTeam = new HashMap<Team, Boolean>();
-    shortestEdgeToNextTarget = new HashMap<Team, Node>();
+    this.tileType = tileType;
+    visibleForTeam = new HashMap<>();
+    shortestEdgeToNextTarget = new HashMap<>();
+
+    charTable = new CharTable();
+  }
+
+  public TileType getTileType() {
+    return tileType;
+  }
+
+  @Override
+  public String toString() {
+    return charTable.getCharForTile(this);
   }
 }

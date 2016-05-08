@@ -1,5 +1,5 @@
 package se.kotlinski.teams;
 
-public enum TeamType {
+public enum TeamId {
   TEAM_A, TEAM_B, NEUTRAL
 }

@@ -1,8 +1,8 @@
 package se.kotlinski.gameboard.cmd;
 
 import se.kotlinski.boardcomponents.BoardComponentBase;
-import se.kotlinski.boardcomponents.tiles.Tile;
-import se.kotlinski.teams.TeamType;
+import se.kotlinski.graph.base.Node;
+import se.kotlinski.teams.TeamId;
 
 public class ColorTable {
 
@@ -10,8 +10,8 @@ public class ColorTable {
   }
 
   public String getTeamColor(final BoardComponentBase unit) {
-    TeamType teamType = unit.getTeamType();
-    switch (teamType) {
+    TeamId teamId = unit.getTeamId();
+    switch (teamId) {
     case TEAM_A:
       return AnsiColor.ANSI_RED;
     case TEAM_B:
@@ -20,7 +20,7 @@ public class ColorTable {
     throw new RuntimeException();
   }
 
-  public String getColorForTile(final Tile tile) {
+  public String getColorForTile(final Node tile) {
     switch (tile.getTileType()) {
     case MUD:
       return AnsiColor.ANSI_YELLOW;

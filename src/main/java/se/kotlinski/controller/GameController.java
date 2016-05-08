@@ -3,10 +3,10 @@ package se.kotlinski.controller;
 import java.util.ArrayList;
 import java.util.List;
 
-import se.kotlinski.boardcomponents.tiles.Tile;
 import se.kotlinski.boardcomponents.units.Unit;
 import se.kotlinski.gameboard.PathGuide;
 import se.kotlinski.gameboard.cmd.GameBoardDrawer;
+import se.kotlinski.graph.base.Node;
 import se.kotlinski.models.Game;
 import se.kotlinski.models.Position;
 import se.kotlinski.teams.Team;
@@ -86,13 +86,13 @@ public class GameController {
     return yDiff + xDiff;
   }
 
-  private void moveUnits(List<Team> teams, final Tile[][] tiles) {
+  private void moveUnits(List<Team> teams, final Node[][] tiles) {
     for (Team team : teams) {
       for (Unit unit : team.units.values()) {
         Position oldPosition = unit.getPosition();
         Position newPosition = pathGuide.calculateNextPosition(oldPosition, unit.getTarget(), teams, tiles);
         unit.setPosition(newPosition);
-        team.units.put(newPosition, unit);
+      //  team.units.put(newPosition, unit);
         team.units.remove(oldPosition);
         System.out.println("Units hash: " + team.units.keySet());
       }

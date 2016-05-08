@@ -4,29 +4,26 @@ import java.util.ArrayList;
 import java.util.Collections;
 import java.util.List;
 
-import se.kotlinski.graph.Graph;
-import se.kotlinski.graph.GraphOperator;
 import se.kotlinski.graph.GraphPath;
-import se.kotlinski.graph.GraphPathImpl;
+import se.kotlinski.graph.base.Edge;
+import se.kotlinski.graph.base.Graph;
+import se.kotlinski.graph.base.Node;
 import se.kotlinski.graph.traverse.ClosestFirstIterator;
-
 
 public final class DijkstraShortestPath<V, E> {
 
-  private GraphPath<V, E> path;
+  private GraphPath path;
 
-
-  public DijkstraShortestPath(Graph<V, E> graph, V startVertex, V endVertex) {
+  public DijkstraShortestPath(Graph graph, V startVertex, V endVertex) {
     this(graph, startVertex, endVertex, Double.POSITIVE_INFINITY);
   }
 
-
-  public DijkstraShortestPath(Graph<V, E> graph, V startVertex, V endVertex, double radius) {
-    if (!graph.containsVertex(endVertex)) {
+  public DijkstraShortestPath(Graph graph, V startVertex, V endVertex, double radius) {
+    /*if (!graph.containsNode(endVertex)) {
       throw new IllegalArgumentException("graph must contain the end vertex");
     }
 
-    ClosestFirstIterator<V, E> iter = new ClosestFirstIterator<V, E>(graph, startVertex, radius);
+    ClosestFirstIterator<Node, Edge> iter = new ClosestFirstIterator(graph, startVertex, radius);
 
     while (iter.hasNext()) {
       V vertex = iter.next();
@@ -37,18 +34,16 @@ public final class DijkstraShortestPath<V, E> {
       }
     }
 
-    path = null;
+    path = null;*/
   }
 
-
-  public static <V, E> List<E> findPathBetween(Graph<V, E> graph, V startVertex, V endVertex) {
-    DijkstraShortestPath<V, E> alg = new DijkstraShortestPath<V, E>(graph, startVertex, endVertex);
+  public static List<Edge> findPathBetween(Graph graph, Node startVertex, Node endVertex) {
+    DijkstraShortestPath alg = new DijkstraShortestPath(graph, startVertex, endVertex);
 
     return alg.getPathEdgeList();
   }
 
-
-  public List<E> getPathEdgeList() {
+  public List<Edge> getPathEdgeList() {
     if (path == null) {
       return null;
     } else {
@@ -56,11 +51,9 @@ public final class DijkstraShortestPath<V, E> {
     }
   }
 
-
-  public GraphPath<V, E> getPath() {
+  public GraphPath getPath() {
     return path;
   }
-
 
   public double getPathLength() {
     if (path == null) {
@@ -70,8 +63,8 @@ public final class DijkstraShortestPath<V, E> {
     }
   }
 
-  private void createEdgeList(Graph<V, E> graph, ClosestFirstIterator<V, E> iter, V startVertex, V endVertex) {
-    List<E> edgeList = new ArrayList<E>();
+  private void createEdgeList(Graph graph, ClosestFirstIterator<V, E> iter, V startVertex, V endVertex) {
+    /*List<E> edgeList = new ArrayList<E>();
 
     V v = endVertex;
 
@@ -83,13 +76,11 @@ public final class DijkstraShortestPath<V, E> {
       }
 
       edgeList.add(edge);
-      v = GraphOperator.getOppositeVertex(graph, edge, v);
+     // v = GraphOperator.getOppositeVertex(graph, edge, v);
     }
 
     Collections.reverse(edgeList);
-    double pathLength = iter.getShortestPathLength(endVertex);
-    path = new GraphPathImpl<V, E>(graph, startVertex, endVertex, edgeList, pathLength);
+    double pathLength = iter.getShortestPathLength(endVertex);*/
+    // path = new GraphPathImpl<V, E>(graph, startVertex, endVertex, edgeList, pathLength);
   }
 }
-
-

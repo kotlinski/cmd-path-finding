@@ -3,7 +3,7 @@ package se.kotlinski.boardcomponents.units;
 import se.kotlinski.boardcomponents.BoardComponentBase;
 import se.kotlinski.boardcomponents.buildings.Building;
 import se.kotlinski.models.Position;
-import se.kotlinski.teams.TeamType;
+import se.kotlinski.teams.TeamId;
 
 public abstract class Unit extends BoardComponentBase {
 
@@ -11,8 +11,8 @@ public abstract class Unit extends BoardComponentBase {
   public Position target;
   public Building enemyBaseBuilding;
 
-  public Unit(final UnitType unitType, final TeamType teamType, final Position position) {
-    super(position, teamType);
+  public Unit(UnitType unitType, Position position, TeamId teamId) {
+    super(teamId, position);
     this.unitType = unitType;
   }
 

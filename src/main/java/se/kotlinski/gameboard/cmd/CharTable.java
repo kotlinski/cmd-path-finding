@@ -1,8 +1,8 @@
 package se.kotlinski.gameboard.cmd;
 
 import se.kotlinski.boardcomponents.BoardComponentBase;
-import se.kotlinski.boardcomponents.tiles.Tile;
 import se.kotlinski.boardcomponents.units.Unit;
+import se.kotlinski.graph.base.Node;
 
 public class CharTable {
 
@@ -10,7 +10,7 @@ public class CharTable {
   public String getCharForUnit(final Unit unit) {
 
     switch (unit.getUnitType()) {
-      case INFANTERY:
+      case INFANTRY:
         return "i";
     }
 
@@ -21,7 +21,7 @@ public class CharTable {
     return "#";
   }
 
-  public String getCharForTile(final Tile tile) {
+  public String getCharForTile(final Node tile) {
     switch (tile.getTileType()) {
       case MUD:
         return "░";

@@ -2,14 +2,14 @@ package se.kotlinski.gameboard;
 
 import java.util.List;
 
-import se.kotlinski.boardcomponents.tiles.Tile;
+import se.kotlinski.graph.base.Node;
 import se.kotlinski.models.Position;
 import se.kotlinski.teams.Team;
 
 public class PathGuide {
 
   public Position calculateNextPosition(Position fromPosition, Position toPosition, final List<Team> teams,
-      final Tile[][] tiles) {
+      Node[][] tiles) {
     int xDiff = fromPosition.x - toPosition.x;
     int yDiff = fromPosition.y - toPosition.y;
 
@@ -43,7 +43,7 @@ public class PathGuide {
     return position;
   }
 
-  private boolean isMovementBlocked(final Position newPosition, final List<Team> teams, final Tile[][] tiles) {
+  private boolean isMovementBlocked(final Position newPosition, final List<Team> teams, final Node[][] tiles) {
     for (Team team : teams) {
       boolean containsPosition = team.units.containsKey(newPosition);
       if (containsPosition) {
@@ -51,7 +51,7 @@ public class PathGuide {
         throw new RuntimeException();
       }
     }
-    Tile tile = tiles[newPosition.y][newPosition.x];
+    Node tile = tiles[newPosition.y][newPosition.x];
 
     switch (tile.getTileType()) {
     case MUD:
