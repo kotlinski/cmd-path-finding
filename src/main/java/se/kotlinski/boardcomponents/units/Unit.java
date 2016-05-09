@@ -11,8 +11,8 @@ public abstract class Unit extends BoardComponentBase {
   public Position target;
   public Building enemyBaseBuilding;
 
-  public Unit(UnitType unitType, Position position, TeamId teamId) {
-    super(teamId, position);
+  public Unit(UnitType unitType, TeamId teamId) {
+    super(teamId);
     this.unitType = unitType;
   }
 
@@ -30,7 +30,9 @@ public abstract class Unit extends BoardComponentBase {
 
   public void setBaseBuildingTarget(final Building enemyBaseBuilding) {
     this.enemyBaseBuilding = enemyBaseBuilding;
-    setTarget(enemyBaseBuilding.getPosition());
+    //setTarget(enemyBaseBuilding.getPosition());
+    //Ask something where opponents buildings are
+
   }
 
   public UnitType getUnitType() {

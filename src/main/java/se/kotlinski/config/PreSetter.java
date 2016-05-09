@@ -8,11 +8,10 @@ import se.kotlinski.boardcomponents.HeightLevel;
 import se.kotlinski.boardcomponents.buildings.Building;
 import se.kotlinski.boardcomponents.buildings.BuildingType;
 import se.kotlinski.boardcomponents.units.Unit;
-import se.kotlinski.gameboard.GameBoard;
-import se.kotlinski.graph.base.Node;
-import se.kotlinski.models.Game;
+import se.kotlinski.deprecated.controller.Game;
+import se.kotlinski.deprecated.controller.GameBoard;
+import se.kotlinski.deprecated.controller.graph.base.Node;
 import se.kotlinski.models.Position;
-import se.kotlinski.operators.UnitOperator;
 import se.kotlinski.teams.Team;
 import se.kotlinski.teams.TeamId;
 
@@ -20,11 +19,6 @@ public class PreSetter {
 
   private static final int HEIGHT = 6;
   private static final int WIDTH = 30;
-  private final UnitOperator unitOperator;
-
-  public PreSetter() {
-    unitOperator = new UnitOperator();
-  }
 
   public Game createGame() {
     // Todo: change to use HashSet(Position, T)
@@ -51,17 +45,19 @@ public class PreSetter {
     List<Building> buildings = new ArrayList<Building>();
     buildings.add(teamA.baseBuilding);
     buildings.add(teamB.baseBuilding);
+/*
 
     unitOperator.setBaseUnitTarget(teamA, teamB.baseBuilding);
     unitOperator.setBaseUnitTarget(teamB, teamA.baseBuilding);
 
+*/
     return new Game(teams, buildings, gameBoard);
   }
 
   private Team setUpTeamA() {
     TeamId teamA = TeamId.TEAM_A;
     Position baseBuildingPosition = new Position(2, 2, HeightLevel.GROUND_UNIT);
-    Building baseBuilding = new Building(BuildingType.BASE, baseBuildingPosition, teamA);
+    Building baseBuilding = new Building(BuildingType.BASE, teamA);
     HashMap<Node, Unit> units = new HashMap<>();
 
     Position infantryPosition = new Position(baseBuildingPosition.x + 1, baseBuildingPosition.y,
@@ -75,7 +71,7 @@ public class PreSetter {
   private Team setUpTeamB() {
     TeamId teamB = TeamId.TEAM_B;
     Position baseBuildingPosition = new Position(WIDTH - 2, HEIGHT - 2, HeightLevel.GROUND_UNIT);
-    Building baseBuilding = new Building(BuildingType.BASE, baseBuildingPosition, teamB);
+    Building baseBuilding = new Building(BuildingType.BASE, teamB);
     HashMap<Node, Unit> units = new HashMap<>();
 
     Position infantryPosition = new Position(baseBuildingPosition.x - 1, baseBuildingPosition.y,

@@ -1,8 +1,8 @@
 package se.kotlinski;
 
 import se.kotlinski.config.PreSetter;
-import se.kotlinski.controller.GameController;
-import se.kotlinski.models.Game;
+import se.kotlinski.deprecated.controller.GameController;
+import se.kotlinski.deprecated.controller.Game;
 
 public class Main {
 

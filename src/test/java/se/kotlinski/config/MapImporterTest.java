@@ -3,7 +3,10 @@ package se.kotlinski.config;
 import org.junit.After;
 import org.junit.Before;
 import org.junit.Test;
-import se.kotlinski.graph.base.Graph;
+
+import se.kotlinski.config.data.BoardGameMap;
+
+import static junit.framework.TestCase.assertEquals;
 
 public class MapImporterTest {
 
@@ -22,7 +25,11 @@ public class MapImporterTest {
 
   @Test
   public void importMapFromCSV() throws Exception {
-    Graph map = mapImporter.importMap("test_map_a");
+    BoardGameMap boardGameMap = mapImporter.importMap("test_map_a");
+    assertEquals(boardGameMap.getMapAttributes().getHeight(), 40);
+    assertEquals(boardGameMap.getMapAttributes().getHeight(), 20);
+
+    assertEquals(boardGameMap.getUnits().size(), 1);
   }
 
 }

@@ -8,6 +8,12 @@ public class Position {
   public int y;
   public HeightLevel heightLevel;
 
+  public Position(int x, int y) {
+    this.x = x;
+    this.y = y;
+    this.heightLevel = HeightLevel.GROUND;
+  }
+
   public Position(int x, int y, HeightLevel heightLevel) {
     this.x = x;
     this.y = y;

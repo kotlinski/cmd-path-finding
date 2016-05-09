@@ -1,7 +1,7 @@
 package se.kotlinski.gameboard.cmd;
 
 import se.kotlinski.boardcomponents.BoardComponentBase;
-import se.kotlinski.graph.base.Node;
+import se.kotlinski.deprecated.controller.graph.base.Node;
 import se.kotlinski.teams.TeamId;
 
 public class ColorTable {

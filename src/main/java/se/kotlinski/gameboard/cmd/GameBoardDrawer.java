@@ -5,10 +5,9 @@ import java.util.List;
 import se.kotlinski.boardcomponents.BoardComponentBase;
 import se.kotlinski.boardcomponents.buildings.Building;
 import se.kotlinski.boardcomponents.units.Unit;
-import se.kotlinski.gameboard.GameBoard;
-import se.kotlinski.graph.base.Node;
-import se.kotlinski.models.Game;
-import se.kotlinski.models.Position;
+import se.kotlinski.deprecated.controller.GameBoard;
+import se.kotlinski.deprecated.controller.graph.base.Node;
+import se.kotlinski.deprecated.controller.Game;
 import se.kotlinski.teams.Team;
 
 public class GameBoardDrawer {
@@ -52,10 +51,10 @@ public class GameBoardDrawer {
   }
 
   private void appendBuildings(final String[][] base_matrix, final List<Building> buildings) {
-    for (BoardComponentBase building : buildings) {
+    /*for (BoardComponentBase building : buildings) {
       Position position = building.getPosition();
       base_matrix[position.y][position.x] = getBuildingDrawable(building);
-    }
+    }*/
   }
 
   private String getBuildingDrawable(final BoardComponentBase building) {
@@ -63,12 +62,12 @@ public class GameBoardDrawer {
   }
 
   private void drawUnits(final String[][] base_matrix, final List<Team> teams) {
-    for (Team team : teams) {
+   /* for (Team team : teams) {
       for (Unit unit : team.units.values()) {
         Position position = unit.getPosition();
         base_matrix[position.y][position.x] = getUnitDrawable(unit);
       }
-    }
+    }*/
   }
 
   private String getUnitDrawable(final Unit unit) {

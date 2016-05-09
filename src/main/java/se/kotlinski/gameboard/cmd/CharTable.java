@@ -2,7 +2,7 @@ package se.kotlinski.gameboard.cmd;
 
 import se.kotlinski.boardcomponents.BoardComponentBase;
 import se.kotlinski.boardcomponents.units.Unit;
-import se.kotlinski.graph.base.Node;
+import se.kotlinski.deprecated.controller.graph.base.Node;
 
 public class CharTable {
 
