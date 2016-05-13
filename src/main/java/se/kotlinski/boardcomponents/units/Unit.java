@@ -39,4 +39,35 @@ public abstract class Unit extends BoardComponentBase {
     return unitType;
   }
 
+  @Override
+  public boolean equals(Object o) {
+    if (this == o) {
+      return true;
+    }
+    if (o == null || getClass() != o.getClass()) {
+      return false;
+    }
+
+    Unit unit = (Unit) o;
+
+    if (unitType != unit.unitType) {
+      return false;
+    }
+    if (target != null ? !target.equals(unit.target) : unit.target != null) {
+      return false;
+    }
+    if (enemyBaseBuilding != null ? !enemyBaseBuilding.equals(unit.enemyBaseBuilding) : unit.enemyBaseBuilding != null) {
+      return false;
+    }
+
+    return true;
+  }
+
+  @Override
+  public int hashCode() {
+    int result = unitType != null ? unitType.hashCode() : 0;
+    result = 31 * result + (target != null ? target.hashCode() : 0);
+    result = 31 * result + (enemyBaseBuilding != null ? enemyBaseBuilding.hashCode() : 0);
+    return result;
+  }
 }

@@ -30,7 +30,7 @@ public class Position {
   }
 
   @Override
-  public boolean equals(final Object o) {
+  public boolean equals(Object o) {
     if (this == o) {
       return true;
     }
@@ -43,14 +43,21 @@ public class Position {
     if (x != position.x) {
       return false;
     }
-    return y == position.y;
+    if (y != position.y) {
+      return false;
+    }
+    if (heightLevel != position.heightLevel) {
+      return false;
+    }
 
+    return true;
   }
 
   @Override
   public int hashCode() {
     int result = x;
     result = 31 * result + y;
+    result = 31 * result + (heightLevel != null ? heightLevel.hashCode() : 0);
     return result;
   }
 }

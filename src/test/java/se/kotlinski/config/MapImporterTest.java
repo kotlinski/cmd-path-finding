@@ -1,12 +1,20 @@
 package se.kotlinski.config;
 
+import static junit.framework.TestCase.assertEquals;
+
+import java.util.HashMap;
+import java.util.Map;
+
 import org.junit.After;
 import org.junit.Before;
 import org.junit.Test;
 
+import se.kotlinski.boardcomponents.units.Unit;
+import se.kotlinski.boardcomponents.units.UnitType;
 import se.kotlinski.config.data.BoardGameMap;
-
-import static junit.framework.TestCase.assertEquals;
+import se.kotlinski.config.data.MapAttributes;
+import se.kotlinski.models.Position;
+import se.kotlinski.teams.TeamId;
 
 public class MapImporterTest {
 
@@ -26,10 +34,11 @@ public class MapImporterTest {
   @Test
   public void importMapFromCSV() throws Exception {
     BoardGameMap boardGameMap = mapImporter.importMap("test_map_a");
-    assertEquals(boardGameMap.getMapAttributes().getHeight(), 40);
-    assertEquals(boardGameMap.getMapAttributes().getHeight(), 20);
-
-    assertEquals(boardGameMap.getUnits().size(), 1);
+    MapAttributes mapAttributes = new MapAttributes(40, 20);
+    Map<Position, Unit> units = new HashMap();
+    units.put(new Position(4, 4), new Unit(UnitType.INFANTRY, TeamId.TEAM_A) {});
+    BoardGameMap expectedGameMap = new BoardGameMap(mapAttributes, units);
+    assertEquals(boardGameMap, expectedGameMap);
   }
 
 }
